@@ -24,7 +24,7 @@ int main(){
 
 	while (true) 
 
-	{ 
+	{
 
 	cout << "1부터 9까지의 숫자를 입력하세요 : "; 
 
