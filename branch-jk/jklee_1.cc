@@ -214,7 +214,8 @@ int main() {
 		cout << "-------------------------369 game-------------------------" << endl;
 		cout << " " << endl;
 		cout << " 1. start game " << endl;
-		cout << " 2. return game select page " << endl;
+		cout << " 2. return game select page " << endl << endl;
+		cout << " -> ";
 		cin >> choose_3;
 		if(choose_3 == 1) goto page_369;
 		else if(choose_3 == 2) goto game_point;
@@ -228,7 +229,8 @@ int main() {
 		cout << "-------------------------Lotto game-------------------------" << endl;
 		cout << " " << endl;
 		cout << " 1. start game " << endl;
-		cout << " 2. return game select page " << endl;
+		cout << " 2. return game select page " << endl << endl;
+		cout << " -> ";
 		cin >> choose_3;
 		if(choose_3 == 1) goto lotto_page;
 		else if(choose_3 == 2) goto game_point;
@@ -242,7 +244,8 @@ int main() {
 		cout << "-------------------------Up and down game-------------------------" << endl;
 		cout << " " << endl;
 		cout << " 1. start game " << endl;
-		cout << " 2. return game select page " << endl;
+		cout << " 2. return game select page " << endl << endl;
+		cout << " -> ";
 		cin >> choose_3;
 		if(choose_3 == 1) goto ud_page;
 		else if(choose_3 == 2) goto game_point;
@@ -256,7 +259,8 @@ int main() {
 		cout << "-------------------------One-pull game-------------------------" << endl;
 		cout << " " << endl;
 		cout << " 1. start game " << endl;
-		cout << " 2. return game select pase " << endl;
+		cout << " 2. return game select page " << endl << endl;
+		cout << " -> ";
 		cin >> choose_3;
 		if(choose_3 == 1) goto op_page;
 		else if(choose_3 == 2) goto game_point;
@@ -270,7 +274,8 @@ int main() {
 		cout << "-------------------------Baseball game-------------------------" << endl;
 		cout << " " << endl;
 		cout << " 1. start game " << endl;
-		cout << " 2. return game select pase " << endl;
+		cout << " 2. return game select page " << endl << endl;
+		cout << " -> ";
 		cin >> choose_3;
 		if(choose_3 == 1) goto b_page;
 		else if(choose_3 == 2) goto game_point;
@@ -314,6 +319,7 @@ int main() {
 		goto game_point;
 	}
 
+
 	/////////////////////////////////////////////////////// 369 ///////////////////////////////////////////////////////
 	page_369:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -328,7 +334,65 @@ int main() {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// baseball ///////////////////////////////////////////////////////
 	b_page:
-	
+	int computerBall[3]; 
+	int userBall[3]; 
+	int count_3 = 1; 
+	int strike; 
+	int ball; 
+	srand(static_cast<unsigned int>(time(NULL))); 
+
+	for (int i=0;i<3;i++){ 
+		computerBall[i] = (rand() % 9) + 1; 
+		for (int j = 0; j < i; j++){
+			if (computerBall[i] == computerBall[j] && i != j) i--;
+		}
+	}
+	while (true){ 
+		cout << "[" << count_3 << "] round" << endl; 
+		while (true){ 
+			cout << "input 3 number and spacebar (ex:3 5 4) : "; 
+			cin >> userBall[0] >> userBall[1] >> userBall[2]; 
+			if (userBall[0] < 1 || userBall[0] > 9 || userBall[1] < 1 || userBall[1] > 9 || userBall[2] < 1 || userBall[2] > 9){
+				cout << "only 1~9 number allow!" << endl; 
+				continue; 
+			} 
+			else if (userBall[0] == userBall[1] || userBall[0] == userBall[2] || userBall[1] == userBall[2]){ 
+				cout << "No duplicate number!" << endl; 
+				continue;
+			} 
+			break; 
+		}
+
+		strike = 0; 
+		ball = 0; 
+
+		for (int i=0;i<3;i++){
+			for (int j=0;j<3;j++){
+				if (computerBall[i] == userBall[j]){
+					if (i == j) strike++;
+					else ball++; 
+				}
+			}
+		}
+		if (strike || ball) cout << "[result] strike : " << strike << ", ball : " << ball << endl << endl; 
+		else cout << "[result] out!!!" << endl << endl; 
+		if (strike == 3){ 
+			cout << "***** you win *****" << endl << endl;
+			usernode_3 -> score[4] = (11 - count_3) * 10;
+			break;
+		}
+		else if (count_3 == 9){
+			cout << "***** you lose.. the answer is : "; 
+			cout << computerBall[0] << computerBall[1] << computerBall[2] << " *****" << endl << endl;
+			usernode_3 -> score[4] = count_3;
+			break;
+		} 
+		count_3++;
+	} 
+	cout << "continue? (y/n)" << endl << endl;
+	cout << " -> ";
+	cin >> del_3;
+	if(del_3 == 'y' || del_3 == 'Y') goto b_page;
+	else if(del_3 == 'n' || del_3 == 'N') goto game_point;
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	return 0;
 }
