@@ -329,6 +329,79 @@ int main() {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// up_down ///////////////////////////////////////////////////////
 	ud_page:
+	{
+		srand(time(NULL));
+		int com_choice;
+		int user_input;
+		int game_con = 1;
+		int game_ans = 1;
+		int game_num = 1;
+
+		cout << "         --------------------------------" << endl;
+		cout << "               [ Up & Down Game !! ]     " << endl;
+		cout << "         --------------------------------" << endl;
+		cout << "   Guess the number chosen by the computer(1~100) " << endl;
+		cout << "              You have 5 chances " << endl;
+		cout << endl;
+		usernode_3->score[2] = 0;
+
+
+		while (game_con)
+		{
+			com_choice = rand() % 100;
+			if (com_choice == 0) com_choice++;
+
+			while (game_ans)
+			{
+				if (game_num > 5)
+				{
+					cout << "===================================" << endl;
+					cout << "    Over 5 chances. You lose :(   " << endl;
+					cout << "===================================" << endl;
+					usernode_3->score[2] -= 1;
+					break;					
+				}
+
+				cout << "User's choice : ";
+				cin >> user_input;
+
+				
+				if (user_input > 100) cout << "  That is Too Big !!";
+				else if (user_input < 0) cout << "  Not Negative :(";
+				else if (user_input > com_choice) cout << "  DOWN !! " << endl;
+				else if (user_input < com_choice) cout << "  UP !!" << endl;
+				else if (user_input == com_choice)
+				{
+					cout << "===================================" << endl;
+					cout << "That is Answer!! Congraturation~~:D" << endl;
+					cout << "===================================" << endl;
+					usernode_3->score[2] += 1; 
+					game_ans = 0;
+					break;
+				}
+				game_num++;
+			}
+
+			cout << "Continue?  1.Yes  2.NO  User's choice : ";
+			cin >> user_input;
+			cout << endl;
+		
+			if (user_input == 1)
+			{
+				game_ans = 1;
+				game_con = 1;
+				game_num = 1;
+			}
+			else
+			{
+				game_ans = 0;
+				game_con = 0;
+				break;
+			}
+
+		}
+		goto game_point;
+	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// one-pull ///////////////////////////////////////////////////////
 	op_page:
@@ -347,6 +420,7 @@ int main() {
 	cout << "          [ Rock Paper Scissors Game!! ] " << endl;
 	cout << "         --------------------------------" << endl;
 	cout << endl;
+	usernode_3->score[3] = 0;
 
 	while (connew = 1)
 	{
