@@ -1,10 +1,12 @@
 #include <cstdio>
 #include <cstdlib>
+#include <iomanip> 
 #include <iostream>
 #include <string>
 #include <ctime> 
 #include <time.h>
-
+#include <stdlib.h>
+int game_2(int number_2, int answer_2); 
 using namespace std; 
 
 typedef struct list_node {
@@ -322,10 +324,87 @@ int main() {
 
 
 	/////////////////////////////////////////////////////// 369 ///////////////////////////////////////////////////////
-	page_369:
+	page_369:{
+	L_1:
+		  int answer_2; 
+		    cout<<"369+5의배수 game start!!!"<<endl; 
+		      cout<<setw(3)<<1<<" : "; 
+			cin>>answer_2; 
+	int ab;
+		      ab=  game_2( 1, answer_2 ); 
+		cout<<"다시 하시겠습니까[1/0] : ";
+		int l_1;
+		cin>>l_1;
+	usernode_3 -> score[0]= ab;
+		if(l_1==1)
+			goto L_1;
+		else if(l_1==0)
+			goto game_point;
+
+}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// lotto ///////////////////////////////////////////////////////
-	lotto_page:
+	lotto_page:{
+	srand((unsigned int)time(0));
+	int lotto_2[45] = {},ar_2[6],money_2=100;
+	cout<<"가진돈 : "<<money_2<<endl;
+L:
+	cout<<"번호입력 : ";
+	for(int i=0;i<6;i++){
+		cin>>ar_2[i];
+	}
+
+
+	for(int a_2=0;a_2<45;a_2++){
+		lotto_2[a_2]=a_2+1;
+	}
+	int temp_2,index1_2,index2_2;
+	for(int a_2=0;a_2<100;a_2++){
+		index1_2=rand()%45;
+		index2_2=rand()%45;
+		temp_2=lotto_2[index1_2];
+		lotto_2[index1_2]=lotto_2[index2_2];
+		lotto_2[index2_2]=temp_2;
+	}
+	for(int a_2=0;a_2<5;a_2++){
+		cout<<lotto_2[a_2]<<"|";
+	}	
+	cout<<"보너스 : "<< lotto_2[5]<<endl;
+	int c_2=0;
+	for(int i=0;i<6;i++){
+		for(int j=0;j<6;j++){
+			if(ar_2[i]==lotto_2[j]){
+				c_2++;
+			}
+		}
+	}
+	if(c_2==0 ){
+		money_2=money_2/2;
+		cout<<"가진돈 : "<<money_2<<endl;
+	}
+	else if(c_2==1 || c_2==2){
+		money_2=money_2*2;
+		cout<<"가진돈 : "<<money_2<<endl;
+	}
+	else if(c_2==3 || c_2==4 || c_2==5){
+		money_2=money_2*4;
+		cout<<"가진돈 : "<<money_2<<endl;
+	}
+	else if(c_2==6){
+		money_2=money_2*8;
+		cout<<"가진돈 : "<<money_2<<endl;
+	}
+	usernode_3 -> score[1] = money_2;
+	cout<<"다시 하시겠습니까[1/0] : ";
+	int l_2;
+	cin>>l_2;
+	cout<<endl;
+	if(l_2==1)
+		goto L;
+	else if(l_2==0)
+		goto game_point;
+		
+}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////// up_down ///////////////////////////////////////////////////////
 	ud_page:
@@ -631,3 +710,57 @@ int main() {
 	else if(del_3 == 'n' || del_3 == 'N') goto game_point;
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
+int game_2(int number_2, int answer_2) 
+{ 
+int a_2=1;
+	  if( answer_2==0 ) 
+		    { 
+			        if( number_2%10==3 || number_2%10==6 || number_2%10==9 ) 
+					    { 
+						          cout<<setw(3)<<++number_2<<" : "; 
+							        cin>>answer_2; 
+								      game_2(number_2, answer_2); 
+								         } 
+				   else 
+					      { 
+						           cout<<"게임 종료"<<endl; 
+								a_2=number_2;
+							        return a_2; 
+								  } 
+		    } 
+	  else if(answer_2!=0 && answer_2!=-1) 
+	  { 
+		    if( number_2%10==3 || number_2%10==6 || number_2%10==9 || number_2%10==0 || number_2%10==5) 
+			      { 
+				          cout<<"게임 종료"<<endl; 
+								a_2=number_2;
+							        return a_2; 
+	
+					       } 
+		     else if( number_2!=answer_2 ) 
+			      { 
+				         cout<<"게임 종료"<<endl; 
+								a_2=number_2;
+							        return a_2; 
+			      } 
+		    else 
+		    { 
+			      cout<<setw(3)<<++number_2<<" : "; 
+			        cin>>answer_2; 
+				  game_2(number_2, answer_2); 
+		    } 
+	  } 
+	  else if(answer_2==-1){
+	  	if(number_2%10==0 || number_2%10==5){
+			cout<<setw(3)<<++number_2<<" : ";
+			cin>>answer_2;
+			game_2(number_2,answer_2);
+		}
+		else{
+			cout<<"게임 종료"<<endl;
+								a_2=number_2;
+							        return a_2; 
+		
+		}
+	  }
+} 
